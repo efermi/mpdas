@@ -4,14 +4,14 @@ CCache* Cache = 0;
 
 void CCache::SaveCache()
 {
+	if(!_entries.size()) {
+		return;
+	}
+
 	std::string path = getenv("HOME");
 	path.append("/.mpdascache");
 	remove(path.c_str());
 	std::ofstream ofs(path.c_str());
-	if(!_entries.size()) {
-		remove(path.c_str());
-		return;
-	}
 
 	for(unsigned int i = 0; i < _entries.size(); i++) {
 		CacheEntry* entry = _entries[i];
